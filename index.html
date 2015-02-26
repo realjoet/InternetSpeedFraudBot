@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+    <select id="serviceprovider">
+        <option value="hide">Internet Service Provider</option>
+        <option value="Comcast" id="comcast">Comcast</option>
+        <option value="CenturyLink">CenturyLink</option>
+        <option value="Att">AT&T</option>
+        <option value="DirecTv">DirecTV</option>
+    </select>
+
+    <h1 id="progress">dude your internet is crazy slow!</h1>
+
+    <span class="twitter-share-button" id="twitter-share-button"
+        data-text="@comcastcares My internet is slower than what I'm paying for. FIX IT!"
+        href="https://twitter.com/share">
+    
+    click me</span>
+
+
+    <script src="jquery-1.10.2.min.js"></script>
+
+    <script src="choice.js"></script>
+
+    <script type="text/javascript">
+  
+    </script>
+
+    <script type="text/javascript">
+        var imageAddr = "http://www.kenrockwell.com/contax/images/g2/examples/31120037-5mb.jpg"; 
+        var downloadSize = 4995374; //bytes
+
+        window.onload = function() {
+            var oProgress = document.getElementById("progress");
+            window.setTimeout(MeasureConnectionSpeed, 1);
+        };
+
+        function MeasureConnectionSpeed() {
+            var oProgress = document.getElementById("progress");
+            var startTime, endTime;
+            var download = new Image();
+            download.onload = function () {
+                endTime = (new Date()).getTime();
+                showResults();
+            }
+            
+            download.onerror = function (err, msg) {
+                oProgress.innerHTML = "Invalid image, or error downloading";
+            }
+            
+            startTime = (new Date()).getTime();
+            var cacheBuster = "?nnn=" + startTime;
+            download.src = imageAddr + cacheBuster;
+            
+            function showResults() {
+                var duration = (endTime - startTime) / 1000;
+                var bitsLoaded = downloadSize * 8;
+                var speedBps = (bitsLoaded / duration).toFixed(2);
+                var speedKbps = (speedBps / 1024).toFixed(2);
+                var speedMbps = (speedKbps / 1024).toFixed(2);
+                oProgress.innerHTML = "Your connection speed is: <br />" + 
+                   /* speedBps + " bps<br />"   + 
+                   speedKbps + " kbps<br />" + */ 
+                   speedMbps + " Mbps<br />";
+
+            }
+        }
+    </script>
+
+
+</body>
+</html>
+
